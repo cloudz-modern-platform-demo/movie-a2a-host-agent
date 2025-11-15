@@ -1,0 +1,8 @@
+{
+  "$schema": "https://langgra.ph/schema.json",
+  "dependencies": ["."],
+  "graphs": {
+    "movie-host-agent": "./src/movie_a2a_host_agent/host/main.py:graph"
+  },
+  "env": ".env"
+}
