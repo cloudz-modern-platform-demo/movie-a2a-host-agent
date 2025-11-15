@@ -1,6 +1,5 @@
 import asyncio
 import logging
-import uuid
 
 import httpx
 from a2a.types import (
@@ -10,11 +9,7 @@ from a2a.types import (
     TaskStatusUpdateEvent,
 )
 from dotenv import load_dotenv
-from langchain_core.messages import HumanMessage
-from langchain_core.runnables import RunnableConfig
 from movie_a2a_host_agent.host.host_agent import HostAgent
-from movie_a2a_host_agent.host.state import InputState
-from movie_a2a_host_agent.utils.graph_stream_utils import print_astream
 
 load_dotenv()
 
@@ -45,25 +40,6 @@ async def main():
     root_agent = host_agent.create_agent()
 
     return root_agent
-    # config = RunnableConfig(
-    #     configurable={
-    #         "thread_id": str(uuid.uuid4()),
-    #         "user_id": "kilsoo75",
-    #     },
-    #     recursion_limit=100,
-    # )
-    # inputs = InputState(
-    #     messages=[
-    #         HumanMessage(content="get movies"),
-    #     ]
-    # )
-
-    # resp = root_agent.astream(inputs, config, stream_mode="messages")
-    # # async for item in resp:
-    # logger.info("Starting to print stream")
-    # await print_astream(resp, stream_mode="messages")
 
 
-# if __name__ == "__main__":
-#     asyncio.run(main())
 graph = asyncio.run(main())

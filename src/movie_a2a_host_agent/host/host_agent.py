@@ -175,18 +175,7 @@ Focus on the most recent parts of the conversation primarily.
                 acceptedOutputModes=["text", "text/plain", "image/png"],
             ),
         )
-        # send_message_payload: dict[str, Any] = {
-        #     'message': {
-        #         'role': 'user',
-        #         'parts': [
-        #             {'kind': 'text', 'text': message}
-        #         ],
-        #         'message_id': uuid.uuid4().hex,
-        #     },
-        # }
-        # request = SendMessageRequest(
-        #     id=str(uuid.uuid4()), params=MessageSendParams(**send_message_payload)
-        # )
+
         response = await client.send_message(request, self.task_callback)
         logger.warning(f"response : {type(response)}")
         logger.warning(f"response : {json.dumps(response.model_dump(), indent=4)}")
@@ -199,61 +188,9 @@ Focus on the most recent parts of the conversation primarily.
             logger.warning(f"result_data : {result_data}")
             return result_data
         else:
-            result_data = response.history[-1].parts[-1].root.text
+            result_data = response.artifacts[-1].parts[-1].root.text
             logger.warning(f"result_data : {result_data}")
             return result_data
-            # data = []
-            # task: Task = response
-            # if (
-            #     task.status.state == TaskState.completed
-            #     or task.status.state == TaskState.failed
-            #     or task.status.state == TaskState.canceled
-            #     or task.status.state == TaskState.unknown
-            # ):
-            #     data.extend(task.status.state.value)
-            # else:
-            #     if task.status.message:
-            #         # Assume the information is in the task message.
-            #         data.extend(await convert_parts(task.status.message.parts))
-            #     if task.artifacts:
-            #         for artifact in task.artifacts:
-            #             data.extend(await convert_parts(artifact.parts))
-
-            # return data
-
-        #     return await convert_parts(response.parts, tool_context)
-        # task: Task = response
-        # # Assume completion unless a state returns that isn't complete
-        # tool_context["session_active"] = task.status.state not in [
-        #     TaskState.completed,
-        #     TaskState.canceled,
-        #     TaskState.failed,
-        #     TaskState.unknown,
-        # ]
-        # if task.contextId:
-        #     tool_context["context_id"] = task.contextId
-        # tool_context["task_id"] = task.id
-        # if task.status.state == TaskState.input_required:
-        #     # Force user input back
-        #     # tool_context.actions.skip_summarization = True
-        #     # tool_context.actions.escalate = True
-        #     pass
-        # elif task.status.state == TaskState.canceled:
-        #     # Open question, should we return some info for cancellation instead
-        #     raise ValueError(f"Agent {agent_name} task {task.id} is cancelled")
-        # elif task.status.state == TaskState.failed:
-        #     # Raise error for failure
-        #     raise ValueError(f"Agent {agent_name} task {task.id} failed")
-        # response = []
-        # if task.status.message:
-        #     # Assume the information is in the task message.
-        #     response.extend(
-        #         await convert_parts(task.status.message.parts, tool_context)
-        #     )
-        # if task.artifacts:
-        #     for artifact in task.artifacts:
-        #         response.extend(await convert_parts(artifact.parts, tool_context))
-        # return response
 
 
 async def convert_parts(parts: list[Part]):
