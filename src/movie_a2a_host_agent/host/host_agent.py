@@ -106,12 +106,10 @@ class HostAgent:
         )
 
     def root_instruction(self) -> str:
-        return """You are an expert delegator that can delegate the user request to the
-appropriate remote agents.
+        return """You are an expert delegator that can delegate the user request to the appropriate remote agents.
 
 Discovery:
-- You can use `list_remote_agents` to list the available remote agents you
-can use to delegate the task.
+- You can use `list_remote_agents` to list the available remote agents you can use to delegate the task.
 
 Execution:
 - For actionable requests, you can use `send_message` to interact with remote agents to take action.

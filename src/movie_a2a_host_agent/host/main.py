@@ -19,15 +19,16 @@ TaskCallbackArg = Task | TaskStatusUpdateEvent | TaskArtifactUpdateEvent
 
 async def task_callback(task: TaskCallbackArg, agent_card: AgentCard):
     """Do something with the task."""
-    logger.warning(f"task_callback : {type(task)}")
+    logger.info(f"task_callback : {type(task)}")
+
     if isinstance(task, TaskStatusUpdateEvent):
-        logger.warning(f"TaskStatusUpdateEvent : {task}")
+        logger.info(f"TaskStatusUpdateEvent : {task}")
         return task
     elif isinstance(task, TaskArtifactUpdateEvent):
-        logger.warning(f"TaskArtifactUpdateEvent : {task}")
+        logger.info(f"TaskArtifactUpdateEvent : {task}")
         return task
     elif isinstance(task, Task):
-        logger.warning(f"Task : {task}")
+        logger.info(f"Task : {task}")
         return task
 
 

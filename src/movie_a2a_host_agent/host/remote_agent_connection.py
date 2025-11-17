@@ -120,13 +120,13 @@ class RemoteAgentConnections:
                                 flush=True,
                             )
                         elif isinstance(result, Message):
-                            print(f"::::::::5 {type(result)} = {result}")
+                            logger.info(f"{type(result)} = {result}")
                         else:
-                            print(f"::::::::3 {type(result)} = {result}")
+                            logger.info(f"{type(result)} = {result}")
                     else:
-                        print("error 2")
+                        logger.error(f"error : {chunk}")
                 else:
-                    print("error 1")
+                    logger.error(f"error : {chunk}")
 
             # print(f"data : {"".join(data)}")
             rv = StreamResponse(data="".join(data))
