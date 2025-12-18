@@ -102,7 +102,6 @@ class HostAgent:
             name="movie_a2a_host_agent",
             # state_schema=InputState,
             system_prompt=self.root_instruction(),
-            # pre_model_hook=RunnableLambda(before_model_callback),
         )
 
     def root_instruction(self) -> str:
