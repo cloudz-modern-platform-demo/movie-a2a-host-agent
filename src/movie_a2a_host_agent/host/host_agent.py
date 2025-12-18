@@ -117,17 +117,9 @@ Be sure to include the remote agent name when you respond to the user.
 
 Please rely on tools to address the request, and don't make up the response. If you are not sure, please ask the user for more details.
 Focus on the most recent parts of the conversation primarily.
-"""
 
-    # def check_state(self, context: InputState):
-    #     if (
-    #         "context_id" in context
-    #         and "session_active" in context
-    #         and context["session_active"]
-    #         and "agent" in context
-    #     ):
-    #         return {"active_agent": f"{context['agent']}"}
-    #     return {"active_agent": "None"}
+Please resposne in markdown table format if the response data is a list.
+"""
 
     # @tool
     def list_remote_agents(self):
@@ -188,30 +180,3 @@ Focus on the most recent parts of the conversation primarily.
             result_data = response.artifacts[-1].parts[-1].root.text
             logger.warning(f"result_data : {result_data}")
             return result_data
-
-
-# async def convert_parts(parts: list[Part]):
-#     rval = []
-#     for p in parts:
-#         rval.append(await convert_part(p))
-#     return rval
-
-
-# async def convert_part(part: Part):
-#     if part.root.kind == "text":
-#         return part.root.text
-#     if part.root.kind == "data":
-#         return part.root.data
-#     if part.root.kind == "file":
-#         # Repackage A2A FilePart to google.genai Blob
-#         # Currently not considering plain text as files
-#         file_id = part.root.file.name
-#         file_bytes = base64.b64decode(part.root.file.bytes)
-#         # file_part = types.Part(
-#         #     inline_data=types.Blob(mime_type=part.root.file.mimeType, data=file_bytes)
-#         # )
-#         # await tool_context.save_artifact(file_id, file_part)
-#         # tool_context.actions.skip_summarization = True
-#         # tool_context.actions.escalate = True
-#         return DataPart(data={"artifact-file-id": file_id})
-#     return f"Unknown type: {part.root.kind}"
